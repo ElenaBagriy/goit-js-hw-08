@@ -5,6 +5,9 @@ const formEl = document.querySelector('.feedback-form');
 const formEmailEl = document.querySelector('[name="email"]');
 const formMessageEl = document.querySelector('[name="message"]');
 
+formEmailEl.required = true;
+formMessageEl.required = true;
+
 const LOCALSTORAGE_KEY = "feedback-form-state";
 loadPage();
 const usersData = { email: formEmailEl.value, message: formMessageEl.value };
@@ -28,6 +31,8 @@ function onSubmitClick(e) {
     e.preventDefault();
     console.log(usersData);
     formEl.reset();
+    usersData.email = '';
+    usersData.message = '';
     remove(LOCALSTORAGE_KEY);
 }
 
@@ -40,7 +45,7 @@ function save(key, value) {
     }
 };
 
-function load(key) { ///парсит в объект
+function load(key) { 
   try {
     const usersDataSaved = localStorage.getItem(key);
     return usersDataSaved === null ? '' : JSON.parse(usersDataSaved);
